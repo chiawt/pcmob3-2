@@ -17,48 +17,6 @@ export default function NotesScreen({ navigation, route  }) {
    { title: "Feed the elephant", done: false, id: "1" },
  ]);
 
-function refreshNotes() {
-   db.transaction((tx) => {
-     tx.executeSql(
-       "select * from notes",
-       null,
-       (_, { rows: { _array } }) => setNotes(_array),
-       (_, error) => console.log("Error: ", error)
-     );
-   });
- }
-
- useEffect(() => {
-   db.transaction(
-     (tx) => {
-       tx.executeSql(
-         `CREATE TABLE IF NOT EXISTS
-       notes
-       (id INTEGER PRIMARY KEY AUTOINCREMENT,
-         title TEXT,
-         done INT);
-       `
-       );
-     },
-     null,
-     refreshNotes
-   );
- }, []);
-
- useEffect(() => {
-    if (route.params?.text) {
-      db.transaction(
-        (tx) => {
-          tx.executeSql("insert into notes (done, title) values (0, ?)", [
-            route.params.text,
-          ]);
-        },
-        null,
-        refreshNotes
-      );
-    }
-  }, [route.params?.text]);
- 
  useEffect(() => {
    navigation.setOptions({
      headerRight: () => (
