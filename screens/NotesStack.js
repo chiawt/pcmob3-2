@@ -18,7 +18,7 @@ export default function NotesStack() {
          },
          headerStyle: {
            height: 120,
-           backgroundColor: "yellow",
+           backgroundColor: "cyan",
            borderBottomColor: "#ccc",
            borderBottomWidth: 1,
          },
